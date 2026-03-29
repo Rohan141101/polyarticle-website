@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>PolyArticle | Personalized News Feed Without the Noise</title>
+
+<meta name="description" content="PolyArticle delivers personalized news through a swipe-card interface. Stay informed without the noise." />
+
+<link rel="canonical" href="https://polyarticle.com" />
+
+<link rel="icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="PolyArticle — Personalized News Without the Noise" />
+<meta property="og:description" content="PolyArticle delivers personalized news through a swipe-card interface. Stay informed, skip the noise." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://polyarticle.com" />
+<meta property="og:image" content="https://polyarticle.com/preview.png" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="PolyArticle — Personalized News Without the Noise" />
+<meta name="twitter:description" content="Personalized news through a swipe-card interface. Stay informed, skip the noise." />
+<meta name="twitter:image" content="https://polyarticle.com/preview.png" />
+
+<!-- Security -->
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+
+*,
+*::before,
+*::after{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+:root{
+
+--black:#000000;
+--white:#FFFFFF;
+
+--text:#333333;
+--text-muted:#888888;
+
+--grey-light:#F2F2F2;
+--grey-mid:#EDEDED;
+
+--border:#E4E4E4;
+
+--radius:16px;
+
+--font-display:'DM Serif Display', Georgia, serif;
+--font-body:'DM Sans', -apple-system, sans-serif;
+
+--max-w:1120px;
+
+--transition:0.25s ease;
+
+}
+
+body{
+font-family:var(--font-body);
+background:var(--white);
+color:var(--text);
+line-height:1.6;
+overflow-x:hidden;
+}
+
+.hero h1{
+word-break:break-word;
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+top:0;
+left:0;
+right:0;
+z-index:100;
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 40px;
+height:64px;
+
+background:rgba(255,255,255,0.88);
+backdrop-filter:blur(12px);
+
+border-bottom:1px solid rgba(0,0,0,0.06);
+}
+
+.nav-logo{
+font-family:var(--font-display);
+font-size:1.25rem;
+color:var(--black);
+text-decoration:none;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:32px;
+list-style:none;
+}
+
+.nav-links a{
+font-size:0.875rem;
+color:var(--text-muted);
+text-decoration:none;
+}
+
+.nav-cta{
+background:var(--black)!important;
+color:var(--white)!important;
+padding:8px 20px;
+border-radius:100px;
+}
+
+/* HERO */
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:120px 24px 80px;
+
+background:radial-gradient(
+ellipse 80% 60% at 50% 0%,
+#F7F7F7 0%,
+var(--white) 70%
+);
+
+text-align:center;
+}
+
+.hero-inner{
+max-width:760px;
+margin:0 auto;
+}
+
+.hero-badge{
+display:inline-flex;
+align-items:center;
+gap:6px;
+
+background:var(--grey-light);
+border:1px solid var(--border);
+
+border-radius:100px;
+
+padding:5px 14px;
+
+font-size:0.78rem;
+font-weight:500;
+color:var(--text-muted);
+
+letter-spacing:0.04em;
+text-transform:uppercase;
+
+margin-bottom:28px;
+}
+
+.hero h1{
+font-family:var(--font-display);
+font-size:clamp(3rem,7vw,5.5rem);
+line-height:1.05;
+letter-spacing:-0.03em;
+color:var(--black);
+margin-bottom:24px;
+}
+
+.hero h1 em{
+font-style:italic;
+color:var(--text-muted);
+}
+
+.hero-desc{
+font-size:1.1rem;
+color:var(--text-muted);
+max-width:520px;
+margin:0 auto 40px;
+}
+
+/* WAITLIST FORM */
+
+.hero-actions{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:16px;
+}
+
+.hero-actions form{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero-actions input{
+padding:14px 18px;
+border-radius:100px;
+border:1px solid var(--border);
+
+font-family:var(--font-body);
+font-size:0.95rem;
+
+min-width:240px;
+outline:none;
+}
+
+.btn-primary{
+display:inline-flex;
+align-items:center;
+
+background:var(--black);
+color:var(--white);
+
+font-size:0.95rem;
+
+padding:14px 28px;
+
+border-radius:100px;
+
+border:none;
+
+cursor:pointer;
+}
+
+.btn-secondary{
+
+border:1px solid var(--border);
+
+padding:14px 24px;
+
+border-radius:100px;
+
+text-decoration:none;
+color:var(--text-muted);
+
+}
+
+.hero-proof{
+font-size:0.82rem;
+color:var(--text-muted);
+}
+
+/* SWIPE CARD SYSTEM */
+
+.swipe-deck{
+position:relative;
+width:300px;
+height:400px;
+cursor:grab;
+}
+
+.swipe-item{
+position:absolute;
+inset:0;
+
+background:#fff;
+
+border-radius:22px;
+
+box-shadow:0 8px 40px rgba(0,0,0,0.13),0 2px 8px rgba(0,0,0,0.06);
+
+overflow:hidden;
+
+transform-origin:bottom center;
+will-change:transform,opacity;
+
+cursor:grab;
+
+user-select:none;
+touch-action:none;
+}
+
+.swipe-item:active{
+cursor:grabbing;
+}
+
+/* CARD STACK POSITIONS */
+
+.swipe-item[data-pos="0"]{
+transform:scale(1) translateY(0px) rotate(0deg);
+z-index:4;
+opacity:1;
+transition:none;
+}
+
+.swipe-item[data-pos="1"]{
+transform:scale(.96) translateY(14px) rotate(0deg);
+z-index:3;
+opacity:.9;
+transition:transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+}
+
+.swipe-item[data-pos="2"]{
+transform:scale(.92) translateY(28px) rotate(0deg);
+z-index:2;
+opacity:.75;
+transition:transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+}
+
+.swipe-item[data-pos="3"]{
+transform:scale(.88) translateY(42px) rotate(0deg);
+z-index:1;
+opacity:0;
+transition:transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+}
+
+/* SWIPE LABELS */
+
+.swipe-label-skip,
+.swipe-label-save{
+
+position:absolute;
+top:20px;
+
+padding:4px 14px;
+
+border-radius:6px;
+
+font-size:0.75rem;
+font-weight:700;
+
+letter-spacing:0.08em;
+text-transform:uppercase;
+
+opacity:0;
+
+pointer-events:none;
+
+transition:opacity .15s ease;
+
+z-index:10;
+}
+
+.swipe-label-skip{
+left:16px;
+background:#fee2e2;
+color:#dc2626;
+border:1.5px solid #fca5a5;
+transform:rotate(-12deg);
+}
+
+.swipe-label-save{
+right:16px;
+background:#dcfce7;
+color:#16a34a;
+border:1.5px solid #86efac;
+transform:rotate(12deg);
+}
+
+/* CARD IMAGE */
+
+.card-img{
+width:100%;
+height:160px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+position:relative;
+overflow:hidden;
+
+flex-shrink:0;
+}
+
+.card-img svg{
+position:relative;
+z-index:1;
+}
+
+/* CARD BODY */
+
+.card-body{
+padding:18px;
+display:flex;
+flex-direction:column;
+gap:0;
+}
+
+.card-tag{
+display:inline-block;
+font-size:0.65rem;
+font-weight:600;
+
+letter-spacing:0.07em;
+text-transform:uppercase;
+
+padding:3px 9px;
+
+border-radius:4px;
+
+margin-bottom:10px;
+}
+
+.card-title{
+font-family:var(--font-display);
+font-size:0.98rem;
+line-height:1.35;
+
+color:var(--black);
+
+margin-bottom:12px;
+}
+
+.card-meta{
+display:flex;
+align-items:center;
+gap:8px;
+
+font-size:0.7rem;
+color:var(--text-muted);
+}
+
+.card-meta-dot{
+width:2px;
+height:2px;
+border-radius:50%;
+background:var(--text-muted);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+<a href="index.html" class="nav-logo">PolyArticle</a>
+
+<ul class="nav-links">
+
+<li><a href="#features">Features</a></li>
+
+<li><a href="#how">How it Works</a></li>
+
+<li><a href="about.html">About</a></li>
+
+<li><a href="#contact.html" class="nav-cta">Get Early Access</a></li>
+
+</ul>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<span class="hero-badge">
+Coming Soon to iOS & Android
+</span>
+
+<h1>
+News,<br><em>finally</em> without the noise
+</h1>
+
+<p class="hero-desc">
+PolyArticle delivers personalized stories through an intuitive swipe-card interface — so you read what matters, nothing else.
+</p>
+
+<div class="hero-actions">
+
+<form action="https://formspree.io/f/mvzwwarv" method="POST">
+
+<input
+type="email"
+name="email"
+placeholder="Enter your email for early access"
+required
+>
+
+<button type="submit" class="btn-primary">
+Join Waitlist
+</button>
+
+</form>
+
+<a href="#features" class="btn-secondary">
+Learn more ↓
+</a>
+
+<p class="hero-proof">
+Early users will get lifetime premium access
+</p>
+
+</div>
+
+<div class="swipe-deck-wrap"
+style="margin-top:72px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+
+<div class="swipe-deck" id="swipeDeck"></div>
+
+<div style="display:flex;gap:20px;align-items:center;">
+
+<button
+id="skipBtn"
+style="width:52px;height:52px;border-radius:50%;border:1px solid var(--border);background:#fff;cursor:pointer;">
+✕
+</button>
+
+<button
+id="saveBtn"
+style="width:52px;height:52px;border-radius:50%;border:1px solid var(--border);background:#fff;cursor:pointer;">
+❤
+</button>
+
+</div>
+
+<p style="font-size:0.72rem;color:var(--text-muted);letter-spacing:0.04em;">
+← skip · drag to swipe · save →
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+(function () {
+
+/* CARD DATA */
+
+const CARDS = [
+
+{
+tag:'Technology',
+tagBg:'#1a1a1a',
+tagColor:'#fff',
+imgBg:'linear-gradient(135deg,#111 0%,#3a3a3a 100%)',
+icon:`<svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+<rect x="2" y="3" width="20" height="14" rx="2" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+<path d="M8 21h8M12 17v4" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-linecap="round"/>
+</svg>`,
+title:'AI breakthroughs redefine how we interact with information',
+source:'The Verge',
+time:'1h ago'
+},
+
+{
+tag:'Climate',
+tagBg:'#e8f5e9',
+tagColor:'#2e7d32',
+imgBg:'linear-gradient(135deg,#1b5e20 0%,#43a047 100%)',
+icon:`<svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="5" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+</svg>`,
+title:'Ocean temperatures hit record highs for third year running',
+source:'The Guardian',
+time:'2h ago'
+},
+
+{
+tag:'Finance',
+tagBg:'#fff3e0',
+tagColor:'#e65100',
+imgBg:'linear-gradient(135deg,#bf360c 0%,#f57c00 100%)',
+icon:`<svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+<path d="M3 3v18h18" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+<path d="M7 16l4-5 4 3 4-6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+</svg>`,
+title:'Global central banks coordinate on digital currency framework',
+source:'Financial Times',
+time:'3h ago'
+},
+
+{
+tag:'Science',
+tagBg:'#e3f2fd',
+tagColor:'#1565c0',
+imgBg:'linear-gradient(135deg,#0d47a1 0%,#1976d2 100%)',
+icon:`<svg width="32" height="32" fill="none" viewBox="0 0 24 24">
+<path d="M9 3h6v11l3 7H6l3-7V3z" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+</svg>`,
+title:'Breakthrough quantum computing milestone achieved',
+source:'Nature',
+time:'4h ago'
+}
+
+];
+
+/* DOM */
+
+const deck = document.getElementById('swipeDeck');
+const skipBtn = document.getElementById('skipBtn');
+const saveBtn = document.getElementById('saveBtn');
+
+if(!deck) return;
+
+/* BUILD CARDS */
+
+const els = CARDS.map((d,i)=>{
+
+const el=document.createElement('div');
+
+el.className='swipe-item';
+el.dataset.pos=i<4?i:3;
+
+el.innerHTML=`
+
+<span class="swipe-label-skip">Nope</span>
+<span class="swipe-label-save">Like</span>
+
+<div class="card-img" style="background:${d.imgBg}">
+${d.icon}
+</div>
+
+<div class="card-body">
+
+<span class="card-tag" style="background:${d.tagBg};color:${d.tagColor}">
+${d.tag}
+</span>
+
+<p class="card-title">${d.title}</p>
+
+<div class="card-meta">
+<span>${d.source}</span>
+<span class="card-meta-dot"></span>
+<span>${d.time}</span>
+</div>
+
+</div>
+
+`;
+
+deck.appendChild(el);
+
+return el;
+
+});
+
+/* STACK ORDER */
+
+let order=els.map((_,i)=>i);
+let animating=false;
+
+function getTop(){
+return els[order[0]];
+}
+
+function updateStack(){
+
+order.forEach((idx,pos)=>{
+els[idx].dataset.pos=pos<4?pos:3;
+});
+
+}
+
+/* EXIT */
+
+function fly(dir){
+
+if(animating) return;
+
+animating=true;
+
+const top=getTop();
+
+const sign=dir==='right'?1:-1;
+
+top.style.transition='transform 220ms ease, opacity 220ms ease';
+
+top.style.transform=`translateX(${sign*420}px) rotate(${sign*15}deg)`;
+
+top.style.opacity='0';
+
+order.push(order.shift());
+
+updateStack();
+
+setTimeout(()=>{
+
+top.removeAttribute('style');
+top.dataset.pos=3;
+
+void top.offsetHeight;
+
+animating=false;
+
+},240);
+
+}
+
+/* DRAG */
+
+let startX=0;
+let currentX=0;
+let dragging=false;
+
+function down(e){
+
+if(animating) return;
+
+dragging=true;
+
+startX=e.touches?e.touches[0].clientX:e.clientX;
+
+currentX=startX;
+
+}
+
+function move(e){
+
+if(!dragging) return;
+
+currentX=e.touches?e.touches[0].clientX:e.clientX;
+
+const dx=currentX-startX;
+
+const top=getTop();
+
+const rotate=dx*0.05;
+
+top.style.transition='none';
+
+top.style.transform=`translateX(${dx}px) rotate(${rotate}deg)`;
+
+const skip=top.querySelector('.swipe-label-skip');
+const save=top.querySelector('.swipe-label-save');
+
+if(dx<-20){
+
+skip.style.opacity=Math.min(1,Math.abs(dx)/80);
+save.style.opacity=0;
+
+}else if(dx>20){
+
+save.style.opacity=Math.min(1,dx/80);
+skip.style.opacity=0;
+
+}else{
+
+skip.style.opacity=0;
+save.style.opacity=0;
+
+}
+
+}
+
+function up(){
+
+if(!dragging) return;
+
+dragging=false;
+
+const dx=currentX-startX;
+
+const top=getTop();
+
+top.style.transition='';
+
+top.querySelectorAll('.swipe-label-skip,.swipe-label-save')
+.forEach(l=>l.style.opacity=0);
+
+if(Math.abs(dx)>100){
+
+fly(dx>0?'right':'left');
+
+}else{
+
+top.style.transform='';
+
+}
+
+}
+
+/* EVENTS */
+
+deck.addEventListener('mousedown',down);
+window.addEventListener('mousemove',move);
+window.addEventListener('mouseup',up);
+
+deck.addEventListener('touchstart',down);
+window.addEventListener('touchmove',move);
+window.addEventListener('touchend',up);
+
+deck.addEventListener('dragstart',e=>e.preventDefault());
+
+skipBtn.addEventListener('click',()=>fly('left'));
+saveBtn.addEventListener('click',()=>fly('right'));
+
+})();
+
+</script>
+
+<!-- FEATURED PUBLISHERS -->
+
+<section style="padding:48px 24px;background:#fafafa;border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;">
+
+<p style="font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;">
+Sources from trusted publishers
+</p>
+
+<div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;font-size:0.95rem;color:#555;font-weight:500;">
+
+<span>Reuters</span>
+<span>The Guardian</span>
+<span>Financial Times</span>
+<span>Nature</span>
+<span>MIT Technology Review</span>
+
+</div>
+
+</section>
+
+
+
+<!-- FEATURES -->
+
+<section id="features" style="padding:100px 24px;background:var(--grey-light);">
+
+<div style="max-width:1120px;margin:0 auto;text-align:center;margin-bottom:64px;">
+
+<p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+Why PolyArticle
+</p>
+
+<h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);margin-bottom:16px;">
+Built for the curious mind
+</h2>
+
+<p style="font-size:1.05rem;color:var(--text-muted);font-weight:300;">
+Three principles drive everything we build: relevance, speed, and calm.
+</p>
+
+</div>
+
+
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1120px;margin:0 auto;">
+
+<div style="background:#fff;border-radius:16px;padding:36px 32px;">
+
+<h3 style="font-family:var(--font-display);margin-bottom:10px;">
+Personalized Feed
+</h3>
+
+<p style="color:var(--text-muted);font-size:0.95rem;">
+See news tailored to what matters to you. Our adaptive algorithm learns from your interests and interactions.
+</p>
+
+</div>
+
+
+<div style="background:#fff;border-radius:16px;padding:36px 32px;">
+
+<h3 style="font-family:var(--font-display);margin-bottom:10px;">
+Swipe Discovery
+</h3>
+
+<p style="color:var(--text-muted);font-size:0.95rem;">
+Discover stories quickly with an intuitive swipe interface. Skip, save, or open articles with a gesture.
+</p>
+
+</div>
+
+
+<div style="background:#fff;border-radius:16px;padding:36px 32px;">
+
+<h3 style="font-family:var(--font-display);margin-bottom:10px;">
+Save What Matters
+</h3>
+
+<p style="color:var(--text-muted);font-size:0.95rem;">
+Save articles you like and revisit them later in a dedicated reading list.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- HOW IT WORKS -->
+
+<section id="how" style="padding:100px 24px;">
+
+<div style="max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+
+<div>
+
+<p style="font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+How it Works
+</p>
+
+<h2 style="font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);margin-bottom:24px;">
+Three steps to a calmer news habit
+</h2>
+
+
+<div style="display:flex;flex-direction:column;gap:28px;">
+
+<div>
+
+<h3 style="font-family:var(--font-display);margin-bottom:6px;">
+Choose interests
+</h3>
+
+<p style="color:var(--text-muted);font-size:0.92rem;">
+Select topics you care about. PolyArticle builds a feed around your curiosity.
+</p>
+
+</div>
+
+
+<div>
+
+<h3 style="font-family:var(--font-display);margin-bottom:6px;">
+Swipe through stories
+</h3>
+
+<p style="color:var(--text-muted);font-size:0.92rem;">
+Swipe right to save, left to dismiss. Your deck refreshes daily.
+</p>
+
+</div>
+
+
+<div>
+
+<h3 style="font-family:var(--font-display);margin-bottom:6px;">
+Read deeper
+</h3>
+
+<p style="color:var(--text-muted);font-size:0.92rem;">
+Tap any story to read the full article directly from the publisher.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div style="background:var(--grey-light);border-radius:16px;padding:40px;">
+
+<p style="font-size:0.9rem;color:var(--text-muted);">
+PolyArticle presents news as a calm deck instead of infinite scroll — so staying informed never feels overwhelming.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer style="border-top:1px solid var(--border);padding:40px 24px;">
+
+<div style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+
+
+<div>
+
+<a href="index.html" style="font-family:'DM Serif Display',serif;font-size:1.1rem;text-decoration:none;color:#000;">
+PolyArticle
+</a>
+
+<p style="font-size:0.82rem;color:var(--text-muted);margin-top:4px;">
+© 2026 PolyArticle. All rights reserved.
+</p>
+
+</div>
+
+
+<ul style="display:flex;gap:28px;list-style:none;">
+
+<li>
+<a href="about.html" style="text-decoration:none;color:var(--text-muted);font-size:0.85rem;">
+About
+</a>
+</li>
+
+<li>
+<a href="privacy.html" style="text-decoration:none;color:var(--text-muted);font-size:0.85rem;">
+Privacy Policy
+</a>
+</li>
+
+<li>
+<a href="faq.html" style="text-decoration:none;color:var(--text-muted);font-size:0.85rem;">
+FAQ
+</a>
+</li>
+
+<li>
+<a href="contact.html" style="text-decoration:none;color:var(--text-muted);font-size:0.85rem;">
+Contact
+</a>
+</li>
+
+</ul>
+
+</div>
+
+</footer>
+
+
+
+</body>
+</html>

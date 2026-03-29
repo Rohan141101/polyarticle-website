@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Account</title>
+</head>
+<body style="font-family:sans-serif;text-align:center;padding:40px;">
+  <h1>Delete Your Account</h1>
+  <p>This will permanently delete your account and all your data.</p>
+
+  <button onclick="deleteAccount()" style="padding:12px 20px;background:red;color:white;">
+    Delete My Account
+  </button>
+
+  <p id="status"></p>
+
+  <script>
+    function getToken() {
+      const params = new URLSearchParams(window.location.search)
+      return params.get("token")
+    }
+
+    async function deleteAccount() {
+      const token = getToken()
+
+      if (!token) {
+        document.getElementById("status").innerText = "Invalid request"
+        return
+      }
+
+      const res = await fetch("https://polyarticle-backend.onrender.com/auth/delete-account", {
+        method: "DELETE",
+        headers: {
+          "Authorization": "Bearer " + token
+        }
+      })
+
+      const data = await res.json()
+
+      document.getElementById("status").innerText =
+        data.success ? "Account deleted successfully" : "Error deleting account"
+    }
+  </script>
+</body>
+</html>
