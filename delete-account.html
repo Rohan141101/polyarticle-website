@@ -6,7 +6,7 @@
 <body style="font-family:sans-serif;text-align:center;padding:40px">
 
   <h2>Delete Your Account</h2>
-  <p>This will permanently delete all your data.</p>
+  <p>This will permanently delete your account.</p>
 
   <button onclick="deleteAccount()" style="padding:12px 20px;background:red;color:white;border:none;border-radius:8px">
     Delete My Account
@@ -18,7 +18,7 @@
 
     async function deleteAccount() {
       if (!token) {
-        alert("Invalid request. Please open from app.")
+        alert("No token found")
         return
       }
 
@@ -30,13 +30,14 @@
           }
         })
 
-        if (res.ok) {
+        if (res.status === 200) {
           alert("Account deleted successfully")
         } else {
-          alert("Delete failed")
+          alert("Delete failed: " + res.status)
         }
-      } catch (e) {
-        alert("Error deleting account")
+
+      } catch (err) {
+        alert("Error calling API")
       }
     }
   </script>
