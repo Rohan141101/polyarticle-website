@@ -3,42 +3,43 @@
 <head>
   <title>Delete Account</title>
 </head>
-<body style="font-family:sans-serif;text-align:center;padding:40px;">
-  <h1>Delete Your Account</h1>
-  <p>This will permanently delete your account and all your data.</p>
+<body style="font-family:sans-serif;text-align:center;padding:40px">
 
-  <button onclick="deleteAccount()" style="padding:12px 20px;background:red;color:white;">
+  <h2>Delete Your Account</h2>
+  <p>This will permanently delete all your data.</p>
+
+  <button onclick="deleteAccount()" style="padding:12px 20px;background:red;color:white;border:none;border-radius:8px">
     Delete My Account
   </button>
 
-  <p id="status"></p>
-
   <script>
-    function getToken() {
-      const params = new URLSearchParams(window.location.search)
-      return params.get("token")
-    }
+    const params = new URLSearchParams(window.location.search)
+    const token = params.get("token")
 
     async function deleteAccount() {
-      const token = getToken()
-
       if (!token) {
-        document.getElementById("status").innerText = "Invalid request"
+        alert("Invalid request. Please open from app.")
         return
       }
 
-      const res = await fetch("https://polyarticle-backend.onrender.com/auth/delete-account", {
-        method: "DELETE",
-        headers: {
-          "Authorization": "Bearer " + token
+      try {
+        const res = await fetch("https://polyarticle-backend.onrender.com/auth/delete-account", {
+          method: "DELETE",
+          headers: {
+            "Authorization": "Bearer " + token
+          }
+        })
+
+        if (res.ok) {
+          alert("Account deleted successfully")
+        } else {
+          alert("Delete failed")
         }
-      })
-
-      const data = await res.json()
-
-      document.getElementById("status").innerText =
-        data.success ? "Account deleted successfully" : "Error deleting account"
+      } catch (e) {
+        alert("Error deleting account")
+      }
     }
   </script>
+
 </body>
 </html>
